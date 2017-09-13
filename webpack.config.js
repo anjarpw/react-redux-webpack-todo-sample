@@ -11,7 +11,7 @@ const SRC_DIR = path.join(__dirname, 'src');
 module.exports = {
   context: SRC_DIR,
   entry : {
-    app: './app.js'
+    index: './index.js'
   },
   output:{
     path:path.join(__dirname,'dist'),
@@ -22,14 +22,13 @@ module.exports = {
       {
         test: /\.scss$/,
         use: extractedTextWebpackPlugin
-      }
-    ],
-    loaders:[
+      },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        include: SRC_DIR
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader'
+        }
       }
     ]
   },
@@ -42,9 +41,9 @@ module.exports = {
     new htmlWebpackPlugin({
       template:path.join(SRC_DIR,'index.html'),
       hash:true,
-      chunks:['app']
+      chunks:['index']
     }),
-    new ExtractTextPlugin("app.css"),
+    new ExtractTextPlugin("index.css"),
   ]
 
-}
+};

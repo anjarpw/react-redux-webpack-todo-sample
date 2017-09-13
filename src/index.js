@@ -9,7 +9,10 @@ import App from './app/app.js';
 
 import appReducers from './app/app.reducers.js';
 const storeWrapper = new StoreWrapper(appReducers,
-  {});
+  {
+    todoList:[],
+    visibilityFilter:'SHOW_ALL'
+  });
 
 const store = storeWrapper.getStore();
 
