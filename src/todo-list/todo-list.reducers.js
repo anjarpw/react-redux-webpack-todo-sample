@@ -12,18 +12,21 @@ var todoListRW = new ReducerWrapper([])
       {
         id:nextTodoId++,
         text:text,
-        completed:false
+        checked:true
       }
     ];
   })
   .addHandler('TOGGLE_TODO',(s,id)=>{
-    return state.map(todo=>{
+    return s.map(todo=>{
       if(todo.id === id){
-        return {...todo, completed: todo.completed};
+        return {...todo, checked: todo.checked};
       }else{
         return todo;
       }
     });
+  })
+  .addHandler('REMOVE_TODO',(s,id)=>{
+    return s.filter(x=>x.id != id);
   });
 
 export {

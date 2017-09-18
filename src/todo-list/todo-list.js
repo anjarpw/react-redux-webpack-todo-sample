@@ -1,23 +1,27 @@
 import { connect } from 'react-redux'
+import Todo from './../todo/todo.js'
 import { dispatchAction } from 'redux-wrapper-extended'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const TodoList = ({ todoList, onTodoClick }) => (
-  <ul>
+const TodoListVm = ({
+    todoList,
+    onTodoClick,
+    val
+  }) => (
+  <div>
     {todoList.map(todo => (
-      <li onClick={() => onTodoClick(todo.id)}>
-        {todo.text}
-      </li>
+      <Todo key={todo.id} todo ={todo}></Todo>
     ))}
-  </ul>
+  </div>
+
 )
 
-TodoList.propTypes = {
+TodoListVm.propTypes = {
   todoList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      completed: PropTypes.bool.isRequired,
+      checked: PropTypes.bool.isRequired,
       text: PropTypes.string.isRequired
     }).isRequired
   ).isRequired,
@@ -29,9 +33,9 @@ const getVisibleTodoList = (todoList, filter) => {
     case 'SHOW_ALL':
       return todoList
     case 'SHOW_COMPLETED':
-      return todoList.filter(t => t.completed)
+      return todoList.filter(t => t.checked)
     case 'SHOW_ACTIVE':
-      return todoList.filter(t => !t.completed)
+      return todoList.filter(t => !t.checked)
   }
 }
 
@@ -41,8 +45,6 @@ const mapStateToProps = state => {
   }
 }
 
-
-
 const mapDispatchToProps = dispatch => {
   return {
     onTodoClick: id => {
@@ -51,9 +53,9 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const VisibleTodoList = connect(
+const TodoList = connect(
   mapStateToProps,
   mapDispatchToProps
-)(TodoList)
+)(TodoListVm)
 
-export default VisibleTodoList
+export default TodoList
