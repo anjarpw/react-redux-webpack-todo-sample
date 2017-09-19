@@ -19,13 +19,13 @@ var todoListRW = new ReducerWrapper([])
   .addHandler('TOGGLE_TODO',(s,id)=>{
     return s.map(todo=>{
       if(todo.id === id){
-        return {...todo, checked: todo.checked};
+        return {...todo, checked: !todo.checked};
       }else{
         return todo;
       }
     });
   })
-  .addHandler('REMOVE_TODO',(s,id)=>{
+  .addHandler('DELETE_TODO',(s,id)=>{
     return s.filter(x=>x.id != id);
   });
 

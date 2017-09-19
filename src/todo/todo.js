@@ -5,23 +5,31 @@ import PropTypes from 'prop-types'
 
 const TodoVm = ({
   todo,
-  handleCheckboxChanged
+  onCheckboxChanged,
+  onDeleteClick,
+  isChecked
 }) => (
   <div>
-    {todo.text}
-    <input type="checkbox" checked={todo.checked}  onChange={handleCheckboxChanged}/>
+    {todo.text} {isChecked}
+    <input type="checkbox" checked={todo.checked}  onChange={onCheckboxChanged}/>
+    <button onClick={onDeleteClick}>DELETE</button>
   </div>
 )
 
 
-const mapStateToProps = state => {
-  return {}
+const mapStateToProps = (state,ownProps) => {
+  return {
+    isChecked:ownProps.todo.checked?"YES":"NO"
+  }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch,ownProps) => {
   return {
-    handleCheckboxChanged: id => {
-      dispatchAction(dispatch, 'TOGGLE_TODO', id)
+    onCheckboxChanged: () => {
+      dispatchAction(dispatch, 'TOGGLE_TODO', ownProps.todo.id)
+    },
+    onDeleteClick: () => {
+      dispatchAction(dispatch, 'DELETE_TODO', ownProps.todo.id)
     }
   }
 }
