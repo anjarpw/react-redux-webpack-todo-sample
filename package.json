@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node_modules/.bin/webpack-dev-server",
+    "start": "node_modules/.bin/webpack-dev-server -d",
     "build": "node_modules/.bin/webpack"
   },
   "homepage": "https://github.com/anjarpw/react-redux-webpack-todo-sample#readme",
